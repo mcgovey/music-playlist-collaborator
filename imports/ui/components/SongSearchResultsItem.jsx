@@ -11,13 +11,10 @@ export default class SongSearchResultsItem extends Component {
 
   addToChannelSong() {
     let channelId = this.props.channel._id, song = this.props.song;
-    // console.log('channel',channel, 'song',song);
+
+    // ----------------------need error handling to see if song has been added to list already---------
     Meteor.call('channelSongs.insert', channelId, song);
   }
-
-  // togglePrivate() {
-  //   Meteor.call('channels.setPrivate', this.props.channel._id, ! this.props.channel.private);
-  // }
 
   render() {
     // Give channels a different className when they are checked off,
@@ -29,9 +26,9 @@ export default class SongSearchResultsItem extends Component {
     let song = this.props.song;
 
     return (
-      <li onClick={this.addToChannelSong.bind(this)}>
+      <a href="#" className="list-group-item list-group-item-action" onClick={this.addToChannelSong.bind(this)}>
           {song.trackName} by {song.artistName}
-      </li>
+      </a>
     );
   }
 }

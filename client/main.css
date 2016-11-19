@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-body {
+/*body {
   font-family: sans-serif;
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
@@ -125,16 +125,16 @@ header .hide-completed {
   }
 }
 
-
+*/
 /*Added to styles*/
-.componentWrapper{
+/*.componentWrapper{
   border: 1px solid black;
 }
 .button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
-    background-color: #008CBA; /* Blue */
+    background-color: #008CBA;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -142,14 +142,14 @@ header .hide-completed {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     border-radius: 4px;
     width: 100%;
 }
 
 .button:hover {
-    background-color: #008CBA; /* Blue */
+    background-color: #008CBA;
     color: white;
     cursor:pointer;
-}
+}*/

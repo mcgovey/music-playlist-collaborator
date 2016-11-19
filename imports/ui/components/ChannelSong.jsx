@@ -20,17 +20,25 @@ export default class ChannelSong extends Component {
     const channelSongClassName = classnames({
       checked: false,//this.props.task.checked,
       private: false,//this.props.task.private,
+      "list-group-item": true,
+      "list-group-item-action": true,
+    });
+
+    const channelSongAnchorClasses = classnames({
+      "list-group-item": true,
+      "list-group-item-action": true,
     });
 // console.log('channelSongDetails', this.props.channelSong);
     return (
-      <li className={channelSongClassName}>
-        <button className="delete" onClick={this.removeThisSongFromChannel.bind(this)}>
-          &times;
-        </button>
+      <li data-id={channelSong._id} className={channelSongClassName}>
+        <span className="pull-right">
+          <button className="btn btn-xs btn-danger" onClick={this.removeThisSongFromChannel.bind(this)}>
+            &times;
+          </button>
+        </span>
 
-        <a href="#" className="text">
-          {channelSong.trackName} by {channelSong.artistName}
-        </a>
+        {channelSong.order}. {channelSong.trackName} by {channelSong.artistName}
+
       </li>
     );
   }

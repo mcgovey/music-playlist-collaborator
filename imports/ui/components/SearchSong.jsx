@@ -43,6 +43,7 @@ export default class SearchSong extends Component {
 
         <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
           <input
+            className="form-control"
             type="text"
             ref="searchInput"
             placeholder="Search for a song"

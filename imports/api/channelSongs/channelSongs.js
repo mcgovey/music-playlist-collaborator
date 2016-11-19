@@ -13,7 +13,7 @@ if (Meteor.isServer) {
         { private: { $ne: true } },
         { owner: this.userId },
       ],
-    });
+    }, { sort: { order: 1 } });
   });
 }
 

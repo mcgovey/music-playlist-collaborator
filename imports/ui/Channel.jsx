@@ -17,25 +17,6 @@ import SearchSong             from './components/SearchSong.jsx';
 // Channels component - represents the rendering of channels
 export default class Channel extends Component {
 
-//   renderTasks() {
-// // console.log('channelSongs Props', this.props);
-//     let filteredTasks = this.props.tasks;
-//     // if (this.state.hideCompleted) {
-//     //   filteredTasks = filteredTasks.filter(task => !task.checked);
-//     // }
-//     return filteredTasks.map((task) => {
-//       const currentUserId = this.props.currentUser && this.props.currentUser._id;
-//       const showPrivateButton = task.owner === currentUserId;
-//
-//       return (
-//         <Task
-//           key={task._id}
-//           task={task}
-//           showPrivateButton={showPrivateButton}
-//         />
-//       );
-//     });
-//   }
   renderChannelSongs(){
 
     let filteredChannelSongs = this.props.channelSong;
@@ -60,12 +41,16 @@ export default class Channel extends Component {
     let filteredSongs = this.props.searchResults;
 
     let currentChannel = this.props.channels[0];
-// console.log('searchresultsplaylist', currentChannel, "filteredSongs", filteredSongs);
+
+// console.log('countOfChannelSongs',this.props.countOfChannelSongs);
 
     return filteredSongs.map((song) => {
-      //--------------this should be passed to the component as well for "who added this" validation
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+//--------------this should be passed to the component as well for "who added this" validation
+// const currentUserId = this.props.currentUser && this.props.currentUser._id;
 // console.log('iteratingSong', song);
+
+      // Get the count of songs in list and add one for input
+      song.order = this.props.countOfChannelSongs + 1;
       return (
         <SongSearchResultsItem
           key={song._id}
@@ -76,37 +61,20 @@ export default class Channel extends Component {
     });
   }
 
-//   renderResults(){
-// // console.log('searchResults Props', this.props);
-//     let filteredSongs = this.props.searchResults;
-//
-// // console.log('this is running', filteredSongs);
-//
-//     //map individual song entries to create multiple lines
-//     return filteredSongs.map((song) => {
-//       const currentUserId = this.props.currentUser && this.props.currentUser._id;
-//
-//       return (
-//         <p>{song.trackName} by {song.artistName}</p>
-//       );
-//     });
-//     //this should be a component call that renders results and attaches a click action to add song to current channelID
-//   }
-
   render() {
-
-          // {console.log('channel props',this.props)}
     return (
       <div className="componentWrapper">
       <h3>Channel Rendering</h3>
 
-      {this.renderChannelSongs()}
+      <ul className="list-group">
+        {this.renderChannelSongs()}
+      </ul>
 
       <SearchSong />
 
-      <ul>
+      <div className="list-group">
         {this.renderSearchResults()}
-      </ul>
+      </div>
 
       </div>
 
@@ -119,5 +87,6 @@ Channel.propTypes = {
   channels: PropTypes.array.isRequired,
   channelSong: PropTypes.array.isRequired,
   searchResults: PropTypes.array.isRequired,
+  countOfChannelSongs: PropTypes.number,
   currentUser: PropTypes.object,
 };

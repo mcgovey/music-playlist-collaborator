@@ -8,7 +8,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 // import Task from './Task.jsx';
 import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
-// import NewChannel from './NewChannel.jsx';
+import Nav from '../components/nav.jsx';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -33,6 +33,8 @@ export default class App extends Component {
         <header>
           <AccountsUIWrapper />
         </header>
+
+        <Nav />
 
         {this.props.content}
 

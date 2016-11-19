@@ -26,11 +26,15 @@ export default ChannelContainer = createContainer(({_id}) => {
 
   //Get an array of search results based on search value
   const searchResults = Songs.find().fetch();
+
+  //Get a count of channel songs for order incrementing
+  const countOfChannelSongs = ChannelSongs.find({channelId: _id}).count();
     // artist filter: {artistName: searchVal}
   return {
     searchResults: searchResults,
     channelSong: relevantChannelSongs,
     channels: singleChannel,
+    countOfChannelSongs: countOfChannelSongs,
     currentUser: Meteor.user(),
   };
 }, Channel);
