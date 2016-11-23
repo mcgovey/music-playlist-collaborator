@@ -14,19 +14,42 @@ import ChannelSong            from './components/ChannelSong.jsx';
 import SongSearchResultsItem  from './components/SongSearchResultsItem.jsx';
 import SearchSong             from './components/SearchSong.jsx';
 
+import '../../client/lib/vendor/html.sortable.min.js';
+
 // Channels component - represents the rendering of channels
 export default class Channel extends Component {
 
+  initSortable(sortableClass) {
+    let sortableList = $( sortableClass );
+  console.log('sortable fired', sortableList);
+    // sortableList.sortable( 'destroy' );
+    // sortableList.sortable();
+    // sortableList.sortable().off( 'sortupdate' );
+    // sortableList.sortable().on( 'sortupdate', () => {
+    //   updateIndexes( '.sortable' );
+    // });
+  }
   renderChannelSongs(){
+console.log('loadingFlag',this.props.loading);
 
-    let filteredChannelSongs = this.props.channelSong;
+    if (!this.props.loading) {
+console.log('render when loaded', this.props.loading);
+      this.initSortable('.sortable');
+      let channelSongList = this.channelSongList( this );
+      return channelSongList;
+    }
 
-    let currentChannel = this.props.channels[0];
+
+  }
+  channelSongList( context ){
+    let filteredChannelSongs = context.props.channelSong;
+
+    let currentChannel = context.props.channels[0];
 // console.log('searchresultsplaylist', currentChannel, "filteredSongs", filteredSongs);
 
     return filteredChannelSongs.map((channelSong) => {
       //--------------this should be passed to the component as well for "who added this" validation
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      const currentUserId = context.props.currentUser && context.props.currentUser._id;
 // console.log('iteratingSong', song);
       return (
         <ChannelSong
@@ -66,7 +89,7 @@ export default class Channel extends Component {
       <div className="componentWrapper">
       <h3>Channel Rendering</h3>
 
-      <ul className="list-group">
+      <ul className="list-group sortable">
         {this.renderChannelSongs()}
       </ul>
 
@@ -84,6 +107,7 @@ export default class Channel extends Component {
 };
 
 Channel.propTypes = {
+  loading: PropTypes.bool,
   channels: PropTypes.array.isRequired,
   channelSong: PropTypes.array.isRequired,
   searchResults: PropTypes.array.isRequired,

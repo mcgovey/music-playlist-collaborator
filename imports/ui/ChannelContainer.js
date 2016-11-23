@@ -12,7 +12,8 @@ import Channel from './Channel.jsx';
 
 export default ChannelContainer = createContainer(({_id}) => {
   Meteor.subscribe('channels');
-  Meteor.subscribe('channelSongs');
+  const channelSongHandle = Meteor.subscribe('channelSongs');
+  const loading = !channelSongHandle.ready();
 
   let searchValue = Session.get('searchVal');
 // console.log('containerID', _id);
@@ -34,6 +35,7 @@ export default ChannelContainer = createContainer(({_id}) => {
     searchResults: searchResults,
     channelSong: relevantChannelSongs,
     channels: singleChannel,
+    loading,
     countOfChannelSongs: countOfChannelSongs,
     currentUser: Meteor.user(),
   };
