@@ -3,7 +3,11 @@ This repo contains a Meteor.js React project with integration to Spotify APIs.  
 
 ## To-Do
 Build out full readme page
+
 Add spotify web player access
+
 Streamline channel creation
+
 Add content to main page
+
 And so much more....
