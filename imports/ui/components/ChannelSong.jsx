@@ -1,17 +1,53 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 
 // ChannelSong component - represents a single channelSong item
 export default class ChannelSong extends Component {
 
+  // let placeholder = document.createElement("li");
+  // placeholder.className = "placeholder";
+
   removeThisSongFromChannel() {
     Meteor.call('channelSongs.remove', this.props.channelSong._id);
-  }
+  }//,
   //
   // togglePrivate() {
   //   Meteor.call('tasks.setPrivate', this.props.task._id, ! this.props.task.private);
   // }
+
+  dragStart(e) {
+    this.dragged = e.currentTarget;
+    e.dataTransfer.effectAllowed = 'move';
+
+console.log('dragStart', e.dataTransfer);
+    // Firefox requires calling dataTransfer.setData
+    // for the drag to properly work
+    e.dataTransfer.setData("text/html", e.currentTarget);
+  }
+  dragEnd(e) {
+
+    this.dragged.style.display = "block";
+    // this.dragged.parentNode.removeChild(placeholder);
+console.log('dragged', this);
+
+    // Update state
+    let data = this.props.channelSong;
+    // let from = Number(this.dragged.dataset.id);
+    // let to = Number(this.over.dataset.id);
+    // if(from < to) to--;
+    // data.splice(to, 0, data.splice(from, 1)[0]);
+    // this.setState({data: data});
+  }
+  dragOver(e) {
+console.log('dragOver', e);
+    e.preventDefault();
+    this.dragged.style.display = "none";
+    if(e.target.className == "placeholder") return;
+    this.over = e.target;
+    // e.target.parentNode.insertBefore(placeholder, e.target);
+  }
 
   render() {
     let channelSong = this.props.channelSong
@@ -30,7 +66,14 @@ export default class ChannelSong extends Component {
     });
 // console.log('channelSongDetails', this.props.channelSong);
     return (
-      <li data-id={channelSong._id} className={channelSongClassName}>
+      <li 
+        key={channelSong._id} 
+        data-id={channelSong._id} 
+        draggable="true"
+        className={channelSongClassName}
+        onDragEnd={this.dragEnd}
+        onDragStart={this.dragStart}
+      >
         <span className="pull-right">
           <button className="btn btn-xs btn-danger" onClick={this.removeThisSongFromChannel.bind(this)}>
             &times;

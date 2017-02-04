@@ -6,9 +6,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 // import { Tasks } from '../api/tasks.js';
 //
 // import Task from './Task.jsx';
-import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
+// import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
 import Nav from '../components/nav.jsx';
+
+import styles from '../styles/bootstrap-base.min.css';
+import stylesLab from '../styles/bootstrap-spacelab.min.css';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -25,14 +28,14 @@ export default class App extends Component {
   //     hideCompleted: !this.state.hideCompleted,
   //   });
   // }
+        // <header>
+        //   <AccountsUIWrapper />
+        // </header>
 
 
   render() {
     return (
       <div className="container">
-        <header>
-          <AccountsUIWrapper />
-        </header>
 
         <Nav />
 

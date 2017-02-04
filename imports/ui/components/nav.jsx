@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
 // Nav component - represents a fully styled nav bar
 export default class Nav extends Component {
 
@@ -17,7 +19,7 @@ export default class Nav extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Brand</a>
+            <a className="navbar-brand" href="../">Just Mash Play</a>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -44,7 +46,7 @@ export default class Nav extends Component {
               <button type="submit" className="btn btn-default">Submit</button>
             </form>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Link</a></li>
+              <li><AccountsUIWrapper /></li>
             </ul>
           </div>
         </div>
