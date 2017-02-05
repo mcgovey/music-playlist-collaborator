@@ -102,7 +102,7 @@ export default class Channel extends Component {
     });
   }
   dragOver(e) {
-console.log('dragOver', e);
+// console.log('dragOver', e);
     e.preventDefault();
     this.dragged.style.display = "none";
     // if(e.target.className == "placeholder") return;

@@ -21,7 +21,6 @@ export default class ChannelSong extends Component {
     this.dragged = e.currentTarget;
     e.dataTransfer.effectAllowed = 'move';
 
-console.log('dragStart', e.dataTransfer);
     // Firefox requires calling dataTransfer.setData
     // for the drag to properly work
     e.dataTransfer.setData("text/html", e.currentTarget);
@@ -30,24 +29,18 @@ console.log('dragStart', e.dataTransfer);
 
     this.dragged.style.display = "block";
     // this.dragged.parentNode.removeChild(placeholder);
-console.log('dragged', this);
 
+console.log('data', this.props);
     // Update state
-    let data = this.props.channelSong;
-    // let from = Number(this.dragged.dataset.id);
-    // let to = Number(this.over.dataset.id);
+    let data = this.props.data;
+    let from = Number(this.dragged.dataset.id);
+    let to = Number(this.over.dataset.id);
+console.log('from', from, 'to', to);
     // if(from < to) to--;
     // data.splice(to, 0, data.splice(from, 1)[0]);
     // this.setState({data: data});
   }
-  dragOver(e) {
-console.log('dragOver', e);
-    e.preventDefault();
-    this.dragged.style.display = "none";
-    if(e.target.className == "placeholder") return;
-    this.over = e.target;
-    // e.target.parentNode.insertBefore(placeholder, e.target);
-  }
+
 
   render() {
     let channelSong = this.props.channelSong
