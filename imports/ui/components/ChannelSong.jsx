@@ -10,6 +10,7 @@ export default class ChannelSong extends Component {
   // placeholder.className = "placeholder";
 
   removeThisSongFromChannel() {
+  console.log('alt delete', this.props);
     Meteor.call('channelSongs.remove', this.props.channelSong._id);
   }//,
   //
@@ -17,29 +18,29 @@ export default class ChannelSong extends Component {
   //   Meteor.call('tasks.setPrivate', this.props.task._id, ! this.props.task.private);
   // }
 
-  dragStart(e) {
-    this.dragged = e.currentTarget;
-    e.dataTransfer.effectAllowed = 'move';
+//   dragStart(e) {
+//     this.dragged = e.currentTarget;
+//     e.dataTransfer.effectAllowed = 'move';
 
-    // Firefox requires calling dataTransfer.setData
-    // for the drag to properly work
-    e.dataTransfer.setData("text/html", e.currentTarget);
-  }
-  dragEnd(e) {
+//     // Firefox requires calling dataTransfer.setData
+//     // for the drag to properly work
+//     e.dataTransfer.setData("text/html", e.currentTarget);
+//   }
+//   dragEnd(e) {
 
-    this.dragged.style.display = "block";
-    // this.dragged.parentNode.removeChild(placeholder);
+//     this.dragged.style.display = "block";
+//     // this.dragged.parentNode.removeChild(placeholder);
 
-console.log('data', this.props);
-    // Update state
-    let data = this.props.data;
-    let from = Number(this.dragged.dataset.id);
-    let to = Number(this.over.dataset.id);
-console.log('from', from, 'to', to);
-    // if(from < to) to--;
-    // data.splice(to, 0, data.splice(from, 1)[0]);
-    // this.setState({data: data});
-  }
+// console.log('data', this);
+//     // Update state
+//     let data = this.props.data;
+//     let from = Number(this.dragged.dataset.id);
+//     let to = Number(this.over.dataset.id);
+// console.log('from', from, 'to', to);
+//     // if(from < to) to--;
+//     // data.splice(to, 0, data.splice(from, 1)[0]);
+//     // this.setState({data: data});
+//   }
 
 
   render() {
@@ -53,19 +54,11 @@ console.log('from', from, 'to', to);
       "list-group-item-action": true,
     });
 
-    const channelSongAnchorClasses = classnames({
-      "list-group-item": true,
-      "list-group-item-action": true,
-    });
-// console.log('channelSongDetails', this.props.channelSong);
     return (
       <li 
         key={channelSong._id} 
         data-id={channelSong._id} 
-        draggable="true"
         className={channelSongClassName}
-        onDragEnd={this.dragEnd}
-        onDragStart={this.dragStart}
       >
         <span className="pull-right">
           <button className="btn btn-xs btn-danger" onClick={this.removeThisSongFromChannel.bind(this)}>

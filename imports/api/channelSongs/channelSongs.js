@@ -22,6 +22,7 @@ Meteor.methods({
     ChannelSongs.remove({});
   },
   'channelSongs.insert'(channelId, text) {
+// console.log('insert method id',channelId,'text',text,'find', ChannelSongs.find({channelId: channelId}));
     check(channelId, String);
     check(text, Object);
 
@@ -29,25 +30,33 @@ Meteor.methods({
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    let song = {
+      'albumID'   : text.albumID,
+      'albumName' : text.albumName,
+      'artistID'  : text.artistID,
+      'artistName': text.artistName,
+      'duration'  : text.duration,
+      'trackID'   : text.trackID,
+      'trackName' : text.trackName,
+      'order'     : text.order
+    };
 
-    text.channelId  = channelId;
-    text.createdAt  = new Date();
-    text.owner      = this.userId;
-    text.username   = Meteor.users.findOne(this.userId).username;
+    song.channelId  = channelId;
+    song.createdAt  = new Date();
+    song.owner      = this.userId;
+    song.username   = Meteor.users.findOne(this.userId).username;
 
-    ChannelSongs.insert(
-      text
-    );
+    ChannelSongs.insert( song );
   },
-  'channelSongs.remove'(taskId) {
-    check(taskId, String);
+  'channelSongs.remove'(channelSongId) {
+    check(channelSongId, String);
 
-    const task = ChannelSongs.findOne(taskId);
-    if (task.private && task.owner !== this.userId) {
-      // If the task is private, make sure only the owner can delete it
+    const track = ChannelSongs.findOne(channelSongId);
+    if (track.private && track.owner !== this.userId) {
+      // If the track is private, make sure only the owner can delete it
       throw new Meteor.Error('not-authorized');
     }
 
-    ChannelSongs.remove(taskId);
+    ChannelSongs.remove(channelSongId);
   },
 });

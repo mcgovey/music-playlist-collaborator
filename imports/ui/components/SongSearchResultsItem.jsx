@@ -4,25 +4,15 @@ import { Meteor } from 'meteor/meteor';
 
 // Channel component - represents a single Channel item
 export default class SongSearchResultsItem extends Component {
-  // toggleChecked() {
-  //   // Set the checked property to the opposite of its current value
-  //   Meteor.call('channels.setChecked', this.props.channel._id, !this.props.channel.checked);
-  // }
 
+  //add songs to channelSongs collections
   addToChannelSong() {
     let channelId = this.props.channel._id, song = this.props.song;
-
-    // ----------------------need error handling to see if song has been added to list already---------
     Meteor.call('channelSongs.insert', channelId, song);
   }
 
   render() {
-    // Give channels a different className when they are checked off,
-    // so that we can style them nicely in CSS
-    // const channelClassName = classnames({
-    //   checked: this.props.channel.checked,
-    //   private: this.props.channel.private,
-    // });
+    //store songs for iterating in render
     let song = this.props.song;
 
     return (

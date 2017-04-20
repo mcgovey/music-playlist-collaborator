@@ -11,7 +11,7 @@ import ChannelItem from '../components/ChannelItem.jsx';
 export default class ChannelList extends Component {
 
   renderChannels() {
-    console.log('OverviewProps',this.props);
+console.log('OverviewProps',this.props);
 
     let filteredChannels = this.props.channels;
     // if (this.state.hideCompleted) {

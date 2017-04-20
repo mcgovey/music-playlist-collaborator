@@ -28,6 +28,8 @@ export default ChannelContainer = createContainer(({_id}) => {
   //Get an array of search results based on search value
   const searchResults = Songs.find().fetch();
 
+  const allChannelSongs = ChannelSongs.find().fetch();
+
   //Get a count of channel songs for order incrementing
   const countOfChannelSongs = ChannelSongs.find({channelId: _id}).count();
     // artist filter: {artistName: searchVal}
@@ -38,5 +40,6 @@ export default ChannelContainer = createContainer(({_id}) => {
     loading,
     countOfChannelSongs: countOfChannelSongs,
     currentUser: Meteor.user(),
+    allChannelSongs,
   };
 }, Channel);

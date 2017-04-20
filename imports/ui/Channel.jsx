@@ -5,8 +5,6 @@ import { Meteor } from 'meteor/meteor';
 
 // import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-import sortable from 'html5sortable';
-
 import { Songs } from '../api/Songs/methods.js';
 // import Task from './Task.jsx';
 
@@ -47,8 +45,41 @@ export default class Channel extends Component {
       
 //   });
 //   }
+//   dragStart(e) {
+//     this.dragged = e.currentTarget;
+//     e.dataTransfer.effectAllowed = 'move';
+
+//     // Firefox requires calling dataTransfer.setData
+//     // for the drag to properly work
+//     e.dataTransfer.setData("text/html", e.currentTarget);
+//   }
+//   dragEnd(e) {
+
+//     this.dragged.style.display = "block";
+//     // this.dragged.parentNode.removeChild(placeholder);
+
+// console.log('this', this, 'event', e);
+//     // Update state
+//     // var data = this.props.channelSong;
+//     // var from = Number(this.dragged.dataset.id);
+//     // var to = Number(this.over.dataset.id);
+//     // if(from < to) to--;
+//     // data.splice(to, 0, data.splice(from, 1)[0]);
+//     // this.setState({data: data});
+//   }
+//   dragOver(e) {
+//     e.preventDefault();
+//     this.dragged.style.display = "none";
+//     // if(e.target.className == "placeholder") return;
+//     this.over = e.target;
+//     // e.target.parentNode.insertBefore(placeholder, e.target);
+//   }
+  deleteChannelSong() {
+console.log('delete', this);
+    Meteor.call('channelSongs.remove', this._id);
+  }
   renderChannelSongs(){
-// console.log('loadingFlag',this.props.loading);
+console.log('channel load',this);
 
     if (!this.props.loading) {
 // console.log('render when loaded', this.props.loading);
@@ -65,16 +96,21 @@ export default class Channel extends Component {
     let currentChannel = context.props.channels[0];
 // console.log('searchresultsplaylist', currentChannel, "filteredSongs", filteredSongs);
 
-    return filteredChannelSongs.map((channelSong) => {
+    return filteredChannelSongs.map((channelSong, i) => {
       //--------------this should be passed to the component as well for "who added this" validation
-      const currentUserId = context.props.currentUser && context.props.currentUser._id;
+      // const currentUserId = context.props.currentUser && context.props.currentUser._id;
 // console.log('iteratingSong', song);
       return (
-        <ChannelSong
+        <li
           key={channelSong._id}
-          channel={currentChannel}
-          channelSong={channelSong}
-        />
+          data-id={channelSong._id}
+        >
+
+        {channelSong.order}. {channelSong.trackName} by {channelSong.artistName}
+        <button className="delete" onClick={this.deleteChannelSong.bind(channelSong)}>
+          &times;
+        </button>
+        </li>
       );
     });
   }
@@ -83,7 +119,7 @@ export default class Channel extends Component {
 
     let currentChannel = this.props.channels[0];
 
-// console.log('countOfChannelSongs',this.props.countOfChannelSongs);
+console.log('countOfChannelSongs',this.props.countOfChannelSongs);
 
     return filteredSongs.map((song) => {
 //--------------this should be passed to the component as well for "who added this" validation
@@ -101,23 +137,21 @@ export default class Channel extends Component {
       );
     });
   }
-  dragOver(e) {
-// console.log('dragOver', e);
-    e.preventDefault();
-    this.dragged.style.display = "none";
-    // if(e.target.className == "placeholder") return;
-    this.over = e.target;
-    // e.target.parentNode.insertBefore(placeholder, e.target);
-  }
+//   dragOver(e) {
+// // console.log('dragOver', e);
+//     e.preventDefault();
+//     this.dragged.style.display = "none";
+//     // if(e.target.className == "placeholder") return;
+//     this.over = e.target;
+//     // e.target.parentNode.insertBefore(placeholder, e.target);
+//   }
 
   render() {
     return (
       <div className="componentWrapper">
       <h3>Channel Rendering</h3>
-
       <ul 
-        className="list-group sortable"
-        onDragOver={this.dragOver}
+        className="list-group"
       >
         {this.renderChannelSongs()}
       </ul>
@@ -142,4 +176,5 @@ Channel.propTypes = {
   searchResults: PropTypes.array.isRequired,
   countOfChannelSongs: PropTypes.number,
   currentUser: PropTypes.object,
+  allChannelSongs: PropTypes.array,
 };
