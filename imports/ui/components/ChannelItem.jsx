@@ -4,10 +4,6 @@ import classnames from 'classnames';
 
 // Channel component - represents a single Channel item
 export default class ChannelItem extends Component {
-  // toggleChecked() {
-  //   // Set the checked property to the opposite of its current value
-  //   Meteor.call('channels.setChecked', this.props.channel._id, !this.props.channel.checked);
-  // }
 
   deleteThisChannel() {
     Meteor.call('channels.remove', this.props.channel._id);

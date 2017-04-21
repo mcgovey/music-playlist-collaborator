@@ -17,6 +17,7 @@ import AdminContainer from '../imports/ui/containers/AdminContainer.js';
 
 
 FlowRouter.route('/', {
+  name: 'home',
   action() {
     mount(App, {content: <ChannelListContainer />});
   }

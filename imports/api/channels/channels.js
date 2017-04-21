@@ -33,7 +33,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    Channels.insert({
+    return Channels.insert({
       text,
       createdAt: new Date(),
       owner: this.userId,
