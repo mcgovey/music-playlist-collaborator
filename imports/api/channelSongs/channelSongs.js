@@ -15,6 +15,9 @@ if (Meteor.isServer) {
       ],
     }, { sort: { order: 1 } });
   });
+  Meteor.publish('allChannelSongs', function() {
+    return ChannelSongs.find();
+  });
 }
 
 Meteor.methods({

@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 
 import { SpotifyWebApi } from 'meteor/xinranxiao:spotify-web-api';
 
-import { Songs } from '../imports/api/Songs/methods.js';
+import { Songs } from '../../Songs/methods.js';
 
 export const SpotifyResponses = new Mongo.Collection('spotifyResponses');
 
