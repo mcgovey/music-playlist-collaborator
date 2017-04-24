@@ -26,19 +26,20 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'channels.insert'(text) {
-    check(text, String);
+    check(text, Object);
 
     // Make sure the user is logged in before inserting a task
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
-    return Channels.insert({
-      text,
+    const channelText = {
+      channelName : text.channelName,
       createdAt: new Date(),
       owner: this.userId,
       username: Meteor.users.findOne(this.userId).username,
-    });
+    };
+
+    return Channels.insert(channelText);
   },
   'channels.remove'(taskId) {
     check(taskId, String);

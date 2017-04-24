@@ -6,7 +6,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 // import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 import { Channels } from '../../api/channels/channels.js';
-// import Task from '../Task.jsx';
 import ChannelList from './../pages/ChannelList.jsx';
 
 export default ChannelListContainer = createContainer(() => {

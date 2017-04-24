@@ -44,8 +44,9 @@ console.log('OverviewProps',this.props);
 
 
         { this.props.currentUser ?
-          <div className="container">
-            <a className='button' href={FlowHelpers.pathFor( 'newchannel' )}>Create a new channel</a>
+          <div className="container btn-group">
+            <a className="btn btn-primary" href={FlowHelpers.pathFor( 'newchannel' )}>Create a new channel</a>
+            <a className="btn btn-primary" href={FlowHelpers.pathFor( 'copyplaylist' )}>Copy a playlist</a>
           </div>
           : ''
         }

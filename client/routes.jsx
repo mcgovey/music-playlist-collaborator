@@ -9,6 +9,9 @@ import ChannelListContainer from '../imports/ui/containers/ChannelListContainer.
 
 import NewChannel from '../imports/ui/NewChannel.jsx';
 
+import CopyPlaylist from '../imports/ui/pages/CopyPlaylist.jsx';
+import CopyPlaylistContainer from '../imports/ui/containers/CopyPlaylistContainer.js';
+
 import Playlist from '../imports/ui/pages/Playlist.jsx';
 import PlaylistContainer from '../imports/ui/containers/PlaylistContainer.js';
 
@@ -30,12 +33,12 @@ FlowRouter.route('/newchannel', {
   }
 });
 
-// FlowRouter.route('/songs', {
-//   name: 'songs',
-//   action() {
-//     mount(App, {content: <Songs />});
-//   }
-// });
+FlowRouter.route('/forkplaylist', {
+  name: 'copyplaylist',
+  action() {
+    mount(App, {content: <CopyPlaylistContainer />});
+  }
+});
 
 FlowRouter.route('/channel/:_id', {
   name:'channel',
@@ -48,6 +51,7 @@ FlowRouter.route('/channel/:_id', {
     });
   }
 });
+
 
 
 FlowRouter.route('/admin', {

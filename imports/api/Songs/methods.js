@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 
-import { SpotifyWebApi } from 'meteor/xinranxiao:spotify-web-api';
+// import { SpotifyWebApi } from 'meteor/xinranxiao:spotify-web-api';
 
 export const Songs = new Mongo.Collection('songs');
 

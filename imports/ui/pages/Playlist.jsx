@@ -80,8 +80,8 @@ console.log('fired!', this);
 
   render() {
     //get the name of the channel
-    let currentChannel = this.props.channels[0] || {text: ''};
-    let channelName = currentChannel.text;
+    let currentChannel = this.props.channels[0] || {channelName: ''};
+    let channelName = currentChannel.channelName;
     return (
       <div className="componentWrapper">
       <h3>{channelName}</h3>

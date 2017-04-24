@@ -5,6 +5,7 @@ import { check } from 'meteor/check';
 import { SpotifyWebApi } from 'meteor/xinranxiao:spotify-web-api';
 
 import { Songs } from '../../Songs/methods.js';
+import { ExternalPlaylists } from '../../playlists/playlistMethods.js';
 
 export const SpotifyResponses = new Mongo.Collection('spotifyResponses');
 
@@ -31,6 +32,7 @@ Meteor.methods({
 // console.log('search response', response.data.body.tracks.items);
 
     SpotifyResponses.insert({
+      type: 'searchTracks',
       response,
       createdAt: new Date(),
       owner: this.userId,
@@ -48,7 +50,41 @@ Meteor.methods({
 
     return responseItems ? responseItems : response;
   },
+  getCurrUserPlaylists: function (argument) {
+
+    var spotifyApi = new SpotifyWebApi();
+    var response = spotifyApi.getUserPlaylists(Meteor.user().profile.id, {});
+
+    //check if error was returned above
+    if (checkTokenRefreshed(response, spotifyApi)) {
+    var response = spotifyApi.getUserPlaylists(Meteor.user().profile.id, {});
+    }
+
+    SpotifyResponses.insert({
+      type: 'getCurrUserPlaylists',
+      response,
+      createdAt: new Date(),
+      owner: this.userId,
+      username: Meteor.users.findOne(this.userId).username,
+    });
+
+
+    if ( response.data.body ) {
+      //insert responses into songs collection
+      var responseItems = response.data.body.items;
+
+      Meteor.call('externalPlaylists.dump', this.userId);
+
+      Meteor.call('externalPlaylists.insert', responseItems);
+    }
+
+
+
+    return responseItems ? responseItems : response;
+  },
+
 });
+
 
 
 var checkTokenRefreshed = function(response, api) {

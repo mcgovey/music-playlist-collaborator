@@ -28,7 +28,7 @@ export default class ChannelItem extends Component {
         </button>
 
         <a href={FlowHelpers.pathFor( 'channel', {_id: this.props.channel._id} )} className="text">
-          <strong>{this.props.channel.username}</strong>: {this.props.channel.text}
+          <strong>{this.props.channel.username}</strong>: {this.props.channel.channelName}
         </a>
       </li>
     );
