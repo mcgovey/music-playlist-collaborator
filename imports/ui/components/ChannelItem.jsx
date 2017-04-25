@@ -20,17 +20,24 @@ export default class ChannelItem extends Component {
       checked: this.props.channel.checked,
       private: this.props.channel.private,
     });
-
+    const currChannel = this.props.channel;
+// {this.props.channel.username}
     return (
-      <li className={channelClassName}>
-        <button className="delete" onClick={this.deleteThisChannel.bind(this)}>
-          &times;
-        </button>
 
-        <a href={FlowHelpers.pathFor( 'channel', {_id: this.props.channel._id} )} className="text">
-          <strong>{this.props.channel.username}</strong>: {this.props.channel.channelName}
-        </a>
-      </li>
+      <tr
+        key={currChannel._id}
+        data-id={currChannel._id}
+        
+      >
+      
+        <td><a href={FlowHelpers.pathFor( 'channel', {_id: currChannel._id} )}>{currChannel.channelName}
+      </a></td>
+        <td>
+          <button className="btn btn-xs btn-danger" onClick={this.deleteThisChannel.bind(this)}>
+            &times;
+          </button>
+        </td>
+      </tr>
     );
   }
 }

@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 // import { createContainer } from 'meteor/react-meteor-data';
 
 
 export default class NewChannel extends Component {
   handleSubmit(event) {
     event.preventDefault();
-console.log('fired');
+// console.log('fired');
 
     // Find the text field via the React ref
     const text = {
-      'channelName': ReactDOM.findDOMNode(this.refs.textInput).value.trim()
+      'channelName' : ReactDOM.findDOMNode(this.refs.textInput).value.trim(),
+      '_id'         : Random.id(),
     };
 
 console.log('text', text);

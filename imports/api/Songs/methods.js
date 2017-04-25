@@ -31,9 +31,7 @@ if (Meteor.isServer) {
     // return nothing if nothing was searched for, otherwise run query in collection
     return searchVal!='' ? Songs.find( query, projection ) : '';
   });
-  Meteor.publish('allSongs', function() {
-    return Songs.find();
-  });
+
 }
 
 Meteor.methods({
@@ -60,7 +58,5 @@ Meteor.methods({
       }
     }
   },
-  'songs.dump': function () {
-    Songs.remove({});
-  }
+
 });

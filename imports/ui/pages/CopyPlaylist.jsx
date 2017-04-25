@@ -1,33 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 
 import {ExternalPlaylists} from '../../api/playlists/playlistMethods.js';
 
 // Channels component - represents the rendering of channels
 export default class CopyPlaylist extends Component {
   componentDidMount() {
-    Meteor.call('getCurrUserPlaylists', function(err, response) {
-console.log('copyResponse: ', response, 'error:', err);
+    Meteor.call('spotify.getCurrUserPlaylists', function(err, response) {
+// console.log('copyResponse: ', response, 'error:', err);
 
     });
   }
   handleClick(playlist, event) {
     event.preventDefault();
-console.log('clicked', event, playlist);
+// console.log('clicked', event, playlist);
     // // Find the text field via the React ref
     // const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
-    Meteor.call('channels.insert', playlist, function (error, result) {
-      console.log('returned err', error, 'res', result);
+    playlist._id = Random.id();
 
-      // FlowHelpers.pathFor( 'channel', result );
+console.log('random id', playlist);
+    // Meteor.call('spotify.getPlaylistTracks', playlist.spotifyId)
+
+    Meteor.call('channels.insert', playlist, function (error, result) {
+// console.log('returned err', error, 'res', result);
+      // go to the newly created channel
       FlowRouter.go('/channel/' + result);
     });
 
-    // // Clear form
-    // ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    
   }
   renderPlaylists() {
 // console.log('Playlist Props',this.props);

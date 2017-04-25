@@ -2,28 +2,28 @@ import React from 'react';
 import {mount} from 'react-mounter';
 // load AppMain, App, and Channel React components
 // import AppMain from '../imports/ui/AppMain.jsx';
-import App from '../imports/ui/layouts/App.jsx';
+import App from '../../ui/layouts/App.jsx';
 
-import ChannelList from '../imports/ui/pages/ChannelList.jsx';
-import ChannelListContainer from '../imports/ui/containers/ChannelListContainer.js';
+import ChannelList from '../../ui/pages/ChannelList.jsx';
+import ChannelListContainer from '../../ui/containers/ChannelListContainer.js';
 
-import NewChannel from '../imports/ui/NewChannel.jsx';
+import NewChannel from '../../ui/NewChannel.jsx';
 
-import CopyPlaylist from '../imports/ui/pages/CopyPlaylist.jsx';
-import CopyPlaylistContainer from '../imports/ui/containers/CopyPlaylistContainer.js';
+import CopyPlaylist from '../../ui/pages/CopyPlaylist.jsx';
+import CopyPlaylistContainer from '../../ui/containers/CopyPlaylistContainer.js';
 
-import Playlist from '../imports/ui/pages/Playlist.jsx';
-import PlaylistContainer from '../imports/ui/containers/PlaylistContainer.js';
+import Playlist from '../../ui/pages/Playlist.jsx';
+import PlaylistContainer from '../../ui/containers/PlaylistContainer.js';
 
-import Admin from '../imports/ui/pages/Admin.jsx';
-import AdminContainer from '../imports/ui/containers/AdminContainer.js';
+import Admin from '../../ui/pages/Admin.jsx';
+import AdminContainer from '../../ui/containers/AdminContainer.js';
 
 
 FlowRouter.route('/', {
-  name: 'home',
-  action() {
-    mount(App, {content: <ChannelListContainer />});
-  }
+	name: 'home',
+	action() {
+		mount(App, {content: <ChannelListContainer />});
+	}
 });
 
 FlowRouter.route('/newchannel', {

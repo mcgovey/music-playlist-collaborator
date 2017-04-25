@@ -19,9 +19,7 @@ if (Meteor.isServer) {
     check(id, String);
     return Channels.find({_id: id});
   });
-  Meteor.publish('allChannels', function() {
-    return Channels.find();
-  });
+
 }
 
 Meteor.methods({
@@ -33,6 +31,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     const channelText = {
+      _id         : text._id,
       channelName : text.channelName,
       createdAt: new Date(),
       owner: this.userId,
@@ -52,29 +51,29 @@ Meteor.methods({
 
     Channels.remove(taskId);
   },
-  'channels.setChecked'(taskId, setChecked) {
-    check(taskId, String);
-    check(setChecked, Boolean);
+  // 'channels.setChecked'(taskId, setChecked) {
+  //   check(taskId, String);
+  //   check(setChecked, Boolean);
 
-    const task = Channels.findOne(taskId);
-    if (task.private && task.owner !== this.userId) {
-      // If the task is private, make sure only the owner can check it off
-      throw new Meteor.Error('not-authorized');
-    }
+  //   const task = Channels.findOne(taskId);
+  //   if (task.private && task.owner !== this.userId) {
+  //     // If the task is private, make sure only the owner can check it off
+  //     throw new Meteor.Error('not-authorized');
+  //   }
 
-    Channels.update(taskId, { $set: { checked: setChecked } });
-  },
-  'channels.setPrivate'(taskId, setToPrivate) {
-    check(taskId, String);
-    check(setToPrivate, Boolean);
+  //   Channels.update(taskId, { $set: { checked: setChecked } });
+  // },
+  // 'channels.setPrivate'(taskId, setToPrivate) {
+  //   check(taskId, String);
+  //   check(setToPrivate, Boolean);
 
-    const task = Channels.findOne(taskId);
+  //   const task = Channels.findOne(taskId);
 
-    // Make sure only the task owner can make a task private
-    if (task.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
+  //   // Make sure only the task owner can make a task private
+  //   if (task.owner !== this.userId) {
+  //     throw new Meteor.Error('not-authorized');
+  //   }
 
-    Channels.update(taskId, { $set: { private: setToPrivate } });
-  },
+  //   Channels.update(taskId, { $set: { private: setToPrivate } });
+  // },
 });

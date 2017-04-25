@@ -11,7 +11,7 @@ import ChannelItem from '../components/ChannelItem.jsx';
 export default class ChannelList extends Component {
 
   renderChannels() {
-console.log('OverviewProps',this.props);
+// console.log('OverviewProps',this.props);
 
     let filteredChannels = this.props.channels;
     // if (this.state.hideCompleted) {
@@ -36,12 +36,20 @@ console.log('OverviewProps',this.props);
           // {console.log('channel props',this.props)}
     return (
       <div className="componentWrapper">
-      <h3>Channel Rendering</h3>
+      <h3>My Playlists</h3>
 
-      <ul>
-        {this.renderChannels()}
-      </ul>
-
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>Playlist Name</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderChannels()}
+        </tbody>
+      </table>
 
         { this.props.currentUser ?
           <div className="container btn-group">

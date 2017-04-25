@@ -15,15 +15,9 @@ if (Meteor.isServer) {
       ],
     }, { sort: { order: 1 } });
   });
-  Meteor.publish('allChannelSongs', function() {
-    return ChannelSongs.find();
-  });
 }
 
 Meteor.methods({
-  'channelSongs.removeAllChannelSongs'() {
-    ChannelSongs.remove({});
-  },
   'channelSongs.insert'(channelId, text) {
 // console.log('insert method id',channelId,'text',text,'find', ChannelSongs.find({channelId: channelId}));
     check(channelId, String);

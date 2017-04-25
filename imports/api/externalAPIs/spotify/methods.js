@@ -50,7 +50,7 @@ Meteor.methods({
 
     return responseItems ? responseItems : response;
   },
-  getCurrUserPlaylists: function (argument) {
+  'spotify.getCurrUserPlaylists': function () {
 
     var spotifyApi = new SpotifyWebApi();
     var response = spotifyApi.getUserPlaylists(Meteor.user().profile.id, {});
@@ -73,7 +73,7 @@ Meteor.methods({
       //insert responses into songs collection
       var responseItems = response.data.body.items;
 
-      Meteor.call('externalPlaylists.dump', this.userId);
+      Meteor.call('externalPlaylists.remove', this.userId);
 
       Meteor.call('externalPlaylists.insert', responseItems);
     }
@@ -82,6 +82,9 @@ Meteor.methods({
 
     return responseItems ? responseItems : response;
   },
+  'spotify.getPlaylistTracks': function () {
+    // body...
+  }
 
 });
 

@@ -2,111 +2,192 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-// import { Songs } from '../../api/Songs/methods.js';
-
-// import SongSearchResultsItem  from '../components/SongSearchResultsItem.jsx';
-// import SearchSong             from '../components/SearchSong.jsx';
-
-// Channels component - represents the rendering of channels
+// Admin component - all details associated with admin page
 export default class Admin extends Component {
-
-  // //method to remove a track from a playlist
-  // deleteChannelSong() {
-  //   Meteor.call('channelSongs.remove', this._id);
-  // }
-//   renderChannelSongs(){
-// // console.log('channel load',this);
-
-//     if (!this.props.loading) {
-// // console.log('render when loaded', this.props.loading);
-//       // this.initSortable('.sortable');
-//       let channelSongList = this.channelSongList( this );
-//       return channelSongList;
-//     }
-
-
-//   }
-//   channelSongList( context ){
-//     //store only the relevant channel songs
-//     let filteredChannelSongs = context.props.channelSong;
-//     //get information on the current channel
-//     let currentChannel = context.props.channels[0];
-
-//     return filteredChannelSongs.map((channelSong, i) => {
-// //--------------this should be passed to the component as well for "who added this" validation
-//       // const currentUserId = context.props.currentUser && context.props.currentUser._id;
-
-//       return (
-//         <tr
-//           key={channelSong._id}
-//           data-id={channelSong._id}
-//         >
-//           <td onMouseOver={this.changeChannelSongOrder.bind(channelSong)}>{channelSong.order}</td>
-//           <td>{channelSong.trackName}</td>
-//           <td>{channelSong.artistName}</td>
-//           <td>
-//             <button className="btn btn-xs btn-danger" onClick={this.deleteChannelSong.bind(channelSong)}>
-//               &times;
-//             </button>
-//           </td>
-//         </tr>
-//       );
-//     });
-//   }
-  renderSongs(){
+    outputDetails(details) {
+console.log( 'full record', this ); 
+    }
+  renderSongs() {
 console.log('admin props',this.props);
+    let filteredSongs = this.props.allSongs;
+
+
+    return filteredSongs.map((song, i) => {
+
+      return (
+        <tr
+          key={song._id}
+          data-id={song._id}
+          onClick={this.outputDetails.bind(song)}
+        >
+          <td>{song._id}</td>
+          <td>{song.trackName}</td>
+          <td>{song.artistName}</td>
+          <td>{song.owner}</td>
+        </tr>
+      );
+    });  
+
   }
-//   renderSearchResults(){
-//     let filteredSongs = this.props.searchResults;
+  renderUsers() {
+    let filteredUsers = this.props.allUsers;
 
-//     let currentChannel = this.props.channels[0];
+// console.log('filteredUsers',filteredUsers);
 
-//     return filteredSongs.map((song) => {
-// //--------------this should be passed to the component as well for "who added this" validation
-// // const currentUserId = this.props.currentUser && this.props.currentUser._id;
-// // console.log('iteratingSong', song);
+    return filteredUsers.map((user, i) => {
 
-//       // Get the count of songs in list and add one for input
-//       song.order = this.props.countOfChannelSongs + 1;
-//       return (
-//         <SongSearchResultsItem
-//           key={song._id}
-//           channel={currentChannel}
-//           song={song}
-//         />
-//       );
-//     });
-//   }
+      return (
+        <tr
+          key={user._id}
+          onClick={this.outputDetails.bind(user)}
+        >
+          <td>{user._id}</td>
+          <td>{user.profile.id}</td>
+          <td>{user.profile.email}</td>
+        </tr>
+      );
+    });  
+
+  }
+  renderChannels() {
+    let filteredChannels = this.props.allChannels;
+
+    return filteredChannels.map((channel, i) => {
+
+      return (
+        <tr
+          key={channel._id}
+          onClick={this.outputDetails.bind(channel)}
+        >
+          <td>{channel._id}</td>
+          <td>{channel.channelName}</td>
+          <td>{channel.owner}</td>
+        </tr>
+      );
+    });  
+  }
+
+  renderChannelSongs() {
+    let filteredChannelSongs = this.props.allChannelSongs;
+
+    return filteredChannelSongs.map((channelSong, i) => {
+
+      return (
+        <tr
+          key={channelSong._id}
+          onClick={this.outputDetails.bind(channelSong)}
+        >
+          <td>{channelSong._id}</td>
+          <td>{channelSong.channelId}</td>
+          <td>{channelSong.trackName}</td>
+          <td>{channelSong.artistName}</td>
+          <td>{channelSong.owner}</td>
+        </tr>
+      );
+    });  
+  }
+  renderExternalPlaylists() {
+    let filteredExPlaylists = this.props.allExPlaylists;
+
+    return filteredExPlaylists.map((playlist, i) => {
+
+      return (
+        <tr
+          key={playlist._id}
+          onClick={this.outputDetails.bind(playlist)}
+        >
+          <td>{playlist._id}</td>
+          <td>{playlist.channelName}</td>
+          <td>{playlist.owner}</td>
+        </tr>
+      );
+    });  
+  }
 
   render() {
 
-      // <table className="table table-hover table-bordered">
-      
-      //   <thead>
-      //     <tr>
-      //       <td>Order</td>
-      //       <td>Track Name</td>
-      //       <td>Artist</td>
-      //       <td></td>
-      //     </tr>
-      //   </thead>
-      //   <tbody>
-      //     {this.renderChannelSongs()}
-      //   </tbody>
-      // </table>
-      // <SearchSong />
 
-      // <div className="list-group">
-      //   {this.renderSearchResults()}
-      // </div>
     return (
       <div className="componentWrapper">
       <h3>Admin Page</h3>
-      <ul>
-        {this.renderSongs()}
-      </ul>
 
+      <h4>Songs</h4>
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Track Name</td>
+            <td>Artist</td>
+            <td>Owner</td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderSongs()}
+        </tbody>
+      </table>
 
+      <h4>Users</h4>
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Email</td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderUsers()}
+        </tbody>
+      </table>
+
+      <h4>Channels</h4>
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Owner</td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderChannels()}
+        </tbody>
+      </table>
+
+      <h4>Channel Songs</h4>
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Channel ID</td>
+            <td>Track Name</td>
+            <td>Artist</td>
+            <td>Owner</td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderChannelSongs()}
+        </tbody>
+      </table>
+
+      <h4>Extenal Playlists</h4>
+      <table className="table table-hover table-bordered">
+      
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Playlist Name</td>
+            <td>Owner</td>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderExternalPlaylists()}
+        </tbody>
+      </table>
       </div>
 
     );

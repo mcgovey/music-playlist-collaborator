@@ -6,8 +6,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import Nav from '../components/nav.jsx';
 
-import styles from '../styles/bootstrap-base.min.css';
-import stylesLab from '../styles/bootstrap-spacelab.min.css';
+// import styles from '../styles/bootstrap-base.min.css';
+// import stylesLab from '../styles/bootstrap-spacelab.min.css';
 
 // App component - represents the whole app
 export default class App extends Component {

@@ -35,29 +35,9 @@ Meteor.methods({
         username      : Meteor.users.findOne(this.userId).username,
       });
     });
-    // for (var i = 0; i < songsResponse.length; i++) {
-    //   // get spotify ID of track
-    //   let spotifyTrackID = songsResponse[i].id;
-
-    //   // check if track exists in db, insert if not
-    //   if (!Songs.findOne({trackID: spotifyTrackID})) {
-    //     Songs.insert({
-    //       trackID     : songsResponse[i].id,
-    //       trackName   : songsResponse[i].name,
-    //       albumID     : songsResponse[i].album.id,
-    //       albumName   : songsResponse[i].album.name,
-    //       artistID    : songsResponse[i].artists[0].id,
-    //       artistName  : songsResponse[i].artists[0].name,
-    //       duration    : songsResponse[i].duration_ms,
-    //       createdAt   : new Date(),
-    //       owner       : this.userId,
-    //       username    : Meteor.users.findOne(this.userId).username,
-    //     });
-    //   }
-    // }
   },
-  'externalPlaylists.dump': function (userId) {
-console.log('findall',ExternalPlaylists.find( {'owner': this.userId} ).fetch());
+  'externalPlaylists.remove': function (userId) {
+// console.log('findall',ExternalPlaylists.find( {'owner': this.userId} ).fetch());
     ExternalPlaylists.remove({'owner': userId});
   }
 });
