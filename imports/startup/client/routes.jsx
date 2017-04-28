@@ -71,6 +71,33 @@ FlowRouter.route('/channel/:_id', {
 //  ]
 
 var loggedIn = FlowRouter.group({
+  prefix: '/',
+  name: 'homeauth',
+  triggersEnter: [function(context, redirect) {
+  	if(!Meteor.userId()){
+  		var route = FlowRouter.current();
+  		if(route.route.name !== 'login'){
+console.log('user route', route);
+  			Session.set('redirectAfterLogin',route.route.name);
+  		}
+  		FlowRouter.go('landingPage');
+  	}
+console.log('running group triggers',Meteor.user(),'-',Meteor.loggingIn(),'-',Meteor.userId());
+  }]
+});
+// handling /home route
+loggedIn.route('/', {
+  name:'home',
+  action() {
+		mount(App, {content: <ChannelListContainer />});
+  },
+  triggersEnter: [function(context, redirect) {
+    console.log('running /forkplaylist trigger');
+  }]
+});
+
+
+var loggedInSub = FlowRouter.group({
   prefix: '/auth',
   name: 'auth',
   triggersEnter: [function(context, redirect) {
@@ -86,31 +113,19 @@ console.log('running group triggers',Meteor.user(),'-',Meteor.loggingIn(),'-',Me
   }]
 });
 
-
-// handling /home route
-loggedIn.route('/', {
-  name:'home',
-  action() {
-		mount(App, {content: <ChannelListContainer />});
-  },
-  triggersEnter: [function(context, redirect) {
-    console.log('running /forkplaylist trigger');
-  }]
-});
-
 // handling /newchannel route
-loggedIn.route('/newchannel', {
+loggedInSub.route('/newchannel', {
 	name:'newchannel',
 	action() {
 		mount(App, {content: <NewChannel />});
 	},
 	triggersEnter: [function(context, redirect) {
-		console.log('running /forkplaylist trigger');
+		console.log('running /newchannel trigger');
 	}]
 });
 
 // handling /copyplaylist route
-loggedIn.route('/forkplaylist', {
+loggedInSub.route('/forkplaylist', {
 	name:'copyplaylist',
 	action() {
 		mount(App, {content: <CopyPlaylistContainer />});
@@ -137,7 +152,14 @@ loggedIn.route('/forkplaylist', {
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   triggersEnter: [function(context, redirect) {
-    console.log('running group triggers',Meteor.user(),'-',Meteor.loggingIn(),'-',Meteor.userId());
+  	if(!Meteor.userId()){
+  		var route = FlowRouter.current();
+  		if(route.route.name !== 'login'){
+console.log('user route', route);
+  			Session.set('redirectAfterLogin',route.route.name);
+  		}
+  		FlowRouter.go('landingPage');
+  	}
   }]
 });
 
