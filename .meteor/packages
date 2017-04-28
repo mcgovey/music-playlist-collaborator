@@ -20,10 +20,9 @@ shell-server@0.2.1            # Server-side component of the `meteor shell` comm
 
 react-meteor-data
 kadira:flow-router
-accounts-ui
-accounts-password
 xinranxiao:accounts-spotify
 xinranxiao:spotify-web-api
 xinranxiao:spotify
 service-configuration
 session
+accounts-ui

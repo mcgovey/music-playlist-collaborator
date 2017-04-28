@@ -7,11 +7,12 @@ import { SpotifyWebApi } from 'meteor/xinranxiao:spotify-web-api';
 import { Songs } from '../../Songs/methods.js';
 import { ExternalPlaylists } from '../../playlists/playlistMethods.js';
 
-export const SpotifyResponses = new Mongo.Collection('spotifyResponses');
+// when storage is not at a premium, store spotify responses
+// export const SpotifyResponses = new Mongo.Collection('spotifyResponses');
 
-Meteor.publish('spotifyResponses', function spotifyResponsesPublication() {
-  return SpotifyResponses.find({});
-});
+// Meteor.publish('spotifyResponses', function spotifyResponsesPublication() {
+//   return SpotifyResponses.find({});
+// });
 
 Meteor.methods({
   searchTracks: function ( searchPattern ) {
@@ -31,13 +32,13 @@ Meteor.methods({
 // console.log('songs', Songs.findOne());
 // console.log('search response', response.data.body.tracks.items);
 
-    SpotifyResponses.insert({
-      type: 'searchTracks',
-      response,
-      createdAt: new Date(),
-      owner: this.userId,
-      username: Meteor.users.findOne(this.userId).username,
-    });
+    // SpotifyResponses.insert({
+    //   type: 'searchTracks',
+    //   response,
+    //   createdAt: new Date(),
+    //   owner: this.userId,
+    //   username: Meteor.users.findOne(this.userId).username,
+    // });
 
     // error handle here instead of ternary response
 
@@ -60,13 +61,13 @@ Meteor.methods({
     var response = spotifyApi.getUserPlaylists(Meteor.user().profile.id, {});
     }
 
-    SpotifyResponses.insert({
-      type: 'getCurrUserPlaylists',
-      response,
-      createdAt: new Date(),
-      owner: this.userId,
-      username: Meteor.users.findOne(this.userId).username,
-    });
+    // SpotifyResponses.insert({
+    //   type: 'getCurrUserPlaylists',
+    //   response,
+    //   createdAt: new Date(),
+    //   owner: this.userId,
+    //   username: Meteor.users.findOne(this.userId).username,
+    // });
 
 
     if ( response.data.body ) {

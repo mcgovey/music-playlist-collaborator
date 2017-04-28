@@ -50,11 +50,14 @@ export default class ChannelList extends Component {
           {this.renderChannels()}
         </tbody>
       </table>
-
         { this.props.currentUser ?
-          <div className="container btn-group">
-            <a className="btn btn-primary" href={FlowHelpers.pathFor( 'newchannel' )}>Create a new channel</a>
-            <a className="btn btn-primary" href={FlowHelpers.pathFor( 'copyplaylist' )}>Copy a playlist</a>
+          <div className="container">
+			<div className="col-sm-4 col-xs-12">
+				<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'copyplaylist' )}>Copy a playlist</a>
+			</div>
+			<div className="col-sm-4 col-xs-12">
+			 	<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'newchannel' )}>Create a new channel</a>
+			</div>
           </div>
           : ''
         }

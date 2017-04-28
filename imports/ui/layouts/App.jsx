@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import AccountsUIWrapper from '../components/AccountsUIWrapper.jsx';
 
 import Nav from '../components/nav.jsx';
 
@@ -14,11 +15,15 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
 
         <Nav />
 
-        {this.props.content}
+        <div className="container mainContent">
+
+        	
+			{ this.props.content }
+        </div>
 
       </div>
     );
