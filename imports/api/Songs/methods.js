@@ -41,21 +41,26 @@ Meteor.methods({
       // get spotify ID of track
       let spotifyTrackID = songsResponse[i].id;
 
+      let songInsertIds = [];
+
       // check if track exists in db, insert if not
       if (!Songs.findOne({trackID: spotifyTrackID})) {
-        Songs.insert({
-          trackID     : songsResponse[i].id,
-          trackName   : songsResponse[i].name,
-          albumID     : songsResponse[i].album.id,
-          albumName   : songsResponse[i].album.name,
-          artistID    : songsResponse[i].artists[0].id,
-          artistName  : songsResponse[i].artists[0].name,
-          duration    : songsResponse[i].duration_ms,
-          createdAt   : new Date(),
-          owner       : this.userId,
-          username    : Meteor.users.findOne(this.userId).username,
-        });
+        songInsertIds.push(
+          Songs.insert({
+            trackID     : songsResponse[i].id,
+            trackName   : songsResponse[i].name,
+            albumID     : songsResponse[i].album.id,
+            albumName   : songsResponse[i].album.name,
+            artistID    : songsResponse[i].artists[0].id,
+            artistName  : songsResponse[i].artists[0].name,
+            duration    : songsResponse[i].duration_ms,
+            createdAt   : new Date(),
+            owner       : this.userId,
+            username    : Meteor.users.findOne(this.userId).username,
+          })
+        );
       }
+	  return songInsertIds;
     }
   },
 

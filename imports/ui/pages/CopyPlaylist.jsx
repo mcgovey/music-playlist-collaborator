@@ -22,7 +22,11 @@ export default class CopyPlaylist extends Component {
     playlist._id = Random.id();
 
 console.log('random id', playlist);
-    // Meteor.call('spotify.getPlaylistTracks', playlist.spotifyId)
+    Meteor.call('spotify.getPlaylistTracks', playlist, function (error, result) {
+console.log('returned err', error, 'res', result);
+      // go to the newly created channel
+      // FlowRouter.go('/channel/' + result);
+    });
 
     Meteor.call('channels.insert', playlist, function (error, result) {
 // console.log('returned err', error, 'res', result);
@@ -77,13 +81,13 @@ console.log('random id', playlist);
     return (
       <div className="componentWrapper">
 
-        <h1>Copy from a playlist</h1>
+        <h3 className="text-center">Copy from a playlist</h3>
 
         <div className="list-group">
           {this.renderPlaylists()}
         </div>
 
-        <h3>Search for another playlist</h3>
+        <h4>Search for another playlist</h4>
 
 
       </div>

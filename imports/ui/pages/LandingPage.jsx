@@ -26,9 +26,14 @@ export default class LandingPage extends Component {
 		  // {console.log('channel props',this.props)}
 	return (
 	  <div className="componentWrapper">
-	  <h1>Welcome to JustMashPlay</h1>
+	  <h3 className="text-center">Welcome to JustMashPlay</h3>
 
-
+		<p>
+			JustMashPlay wants to make managing your Spotify playlists a bit easier.  We allow you to copy public playlists and make changes based on your preferences.  As this application growth increases, you will begin to see recommendations for tracks to add or remove based on other user's preferences.  We look forward to having you join us on this exciting change to how music is managed online. 
+		</p>
+		<p>
+		This web app is in early beta but I would love additional testers.  Please use the link below to register for access to the site and I will reach out shortly.	
+		</p>
 
 
 	  </div>

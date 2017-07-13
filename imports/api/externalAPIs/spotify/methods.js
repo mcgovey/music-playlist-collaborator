@@ -83,8 +83,49 @@ Meteor.methods({
 
     return responseItems ? responseItems : response;
   },
-  'spotify.getPlaylistTracks': function () {
-    // body...
+  'spotify.getPlaylistTracks': function (playlist) {
+// console.log('playlist', playlist);
+    check(playlist, Object);
+    let playlistId  = playlist.spotifyId,
+        channelId   = playlist._id;
+// console.log('playlist', playlist);
+    check(playlistId, String);
+    check(channelId, String);
+// console.log('spotifyid', playlistId);
+
+    var spotifyApi = new SpotifyWebApi();
+// console.log('spotifyApi', spotifyApi);
+    var response = spotifyApi.getPlaylistTracks(Meteor.user().profile.id, playlistId, {});
+
+    //check if error was returned above
+    if (checkTokenRefreshed(response, spotifyApi)) {
+      var response = spotifyApi.getPlaylistTracks(Meteor.user().profile.id, playlistId, {});
+    }
+console.log('user', Meteor.user().profile.id, 'playlist',playlistId ,'response', response);
+    // SpotifyResponses.insert({
+    //   type: 'getPlaylistTracks',
+    //   response,
+    //   createdAt: new Date(),
+    //   owner: this.userId,
+    //   username: Meteor.users.findOne(this.userId).username,
+    // });
+
+    if ( response.data.body ) {
+      //insert responses into songs collection
+      var responseItems = response.data.body.items;
+
+      responseItems.map((item) => {
+        Meteor.call('songs.insert', responseItems, function (error, result) {
+console.log('returned err', error, 'res', result);
+          //Meteor.call('channelSongs.insert', channelId, Songs.findOne(result));
+      // go to the newly created channel
+        });
+
+        // 
+      });
+    }
+
+    return responseItems ? responseItems : response;
   }
 
 });
