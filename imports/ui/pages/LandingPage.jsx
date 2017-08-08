@@ -26,11 +26,19 @@ export default class LandingPage extends Component {
 		  // {console.log('channel props',this.props)}
 	return (
 	  <div className="componentWrapper">
-	  <h3 className="text-center">Welcome to JustMashPlay</h3>
-
+	  	<h3 className="text-center">Welcome to Just Mash Play</h3>
+		
+		<img className="fixed-ratio-resize" src="images/StockSnap_6QLR7RL7G5.jpg" alt=""/>
+		<h5 className="text-center">What is Just Mash Play?</h5>
 		<p>
-			JustMashPlay wants to make managing your Spotify playlists a bit easier.  We allow you to copy public playlists and make changes based on your preferences.  As this application growth increases, you will begin to see recommendations for tracks to add or remove based on other user's preferences.  We look forward to having you join us on this exciting change to how music is managed online. 
+		Just Mash Play wants to make managing your Spotify playlists a bit easier.  We allow you to copy public playlists and make changes based on your preferences.  As this application growth increases, you will begin to see recommendations for tracks to add or remove based on other user's preferences. 
 		</p>
+		<h5 className="text-center">Why bother with this?</h5>
+		<p>
+		How many times have you thought that a playlist would be great if it had that one extra song, or if you could just get rid of that one track you don't think goes with the rest.  Just Mash Play makes it easier to copy playlists and customize them to your preferences.
+		</p>
+
+		<h5 className="text-center">About Just Mash Play</h5>
 		<p>
 		This web app is in early beta but I would love additional testers.  Please use the link below to register for access to the site and I will reach out shortly.	
 		</p>
