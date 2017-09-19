@@ -10,15 +10,58 @@ import SearchSong             from '../components/SearchSong.jsx';
 // Channels component - represents the rendering of channels
 export default class Playlist extends Component {
 
-  //method to remove a track from a playlist
-  deleteChannelSong() {
-    Meteor.call('channelSongs.remove', this._id);
-  }
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			// hideCompleted: false,
+		};
+	}
+	getMoreSearchResults(){
+		return (
+			<div>
+				<div className="col-sm-4 col-xs-12">
+					<a className="btn btn-primary btn-block" href="">Search More</a>
+				</div>
+			</div>
+			
+		);
+	}
+	convertTimeFromMS( time ){
+		const minutes = Math.floor(time / 60000);
+		const seconds = ((time % 60000) / 1000).toFixed(0);
+		return (seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);;
+	}
+	//method to remove a track from a playlist
+	deleteChannelSong() {
+		Meteor.call('channelSongs.remove', this._id);
+	}
   changeChannelSongOrder() {
 console.log('fired!', this);
   }
   renderChannelSongs(){
-// console.log('channel load',this);
+
+	//create duration property on channel song
+	if(this.props.channelSong.length>0){
+console.log('channel load',this.props.channelSong);
+
+		// this.state.
+		let cumulativeSongDuration = [];
+		
+		const temp1 = this.props.channelSong.map(function (a) { 
+			return a.duration; 
+		})
+		const temp2 = temp1.reduce(function(a,b,i) {
+console.log('a', a, 'b', b, 'i', i, 'cumulative', cumulativeSongDuration);
+			cumulativeSongDuration[i] = a + b;
+			return a+b; 
+		},0);
+
+		this.state.cumulativeSongDuration = cumulativeSongDuration;
+	
+console.log('duration array', this.state, 'temp', temp1, 'temp2',temp2)
+	}
+	
 
     if (!this.props.loading) {
 // console.log('render when loaded', this.props.loading);
@@ -38,22 +81,23 @@ console.log('fired!', this);
     return filteredChannelSongs.map((channelSong, i) => {
 //--------------this should be passed to the component as well for "who added this" validation
       // const currentUserId = context.props.currentUser && context.props.currentUser._id;
-
-      return (
-        <tr
-          key={channelSong._id}
-          data-id={channelSong._id}
-        >
-          <td onMouseOver={this.changeChannelSongOrder.bind(channelSong)}>{channelSong.order}</td>
-          <td>{channelSong.trackName}</td>
-          <td>{channelSong.artistName}</td>
-          <td>
-            <button className="btn btn-xs btn-danger" onClick={this.deleteChannelSong.bind(channelSong)}>
-              &times;
-            </button>
-          </td>
-        </tr>
-      );
+		const timeStr = this.convertTimeFromMS(channelSong.duration);
+		return (
+			<tr
+				key={channelSong._id}
+				data-id={channelSong._id}
+			>
+				<td onMouseOver={this.changeChannelSongOrder.bind(channelSong)}>{channelSong.order}</td>
+				<td>{channelSong.trackName}</td>
+				<td>{channelSong.artistName}</td>
+				<td>{timeStr}</td>
+				<td>
+					<button className="btn btn-xs btn-danger" onClick={this.deleteChannelSong.bind(channelSong)}>
+					&times;
+					</button>
+				</td>
+			</tr>
+		);
     });
   }
   renderSearchResults(){
@@ -93,6 +137,7 @@ console.log('fired!', this);
             <td>Order</td>
             <td>Track Name</td>
             <td>Artist</td>
+            <td>Track Length</td>
             <td></td>
           </tr>
         </thead>
@@ -101,11 +146,19 @@ console.log('fired!', this);
         </tbody>
       </table>
 
+		<div className="col-sm-4 col-xs-12">
+			<a className="btn btn-primary btn-block" href="">Share</a>
+		</div>
+		<div className="col-sm-4 col-xs-12">
+			<a className="btn btn-primary btn-block" href="">Save to Spotify</a>
+		</div>
+
       <SearchSong />
 
       <div className="list-group">
         {this.renderSearchResults()}
       </div>
+		{this.getMoreSearchResults()}
 
       </div>
 

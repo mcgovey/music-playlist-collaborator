@@ -6,6 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Channels } from '../../api/channels/channels.js';
 import { ChannelSongs } from '../../api/channelSongs/channelSongs.js';
 import { Songs } from '../../api/Songs/methods.js';
+import { SearchResults } from '../../api/Songs/searchResultMethods.js';
 
 import Playlist from '../pages/Playlist.jsx';
 
@@ -25,7 +26,8 @@ export default PlaylistContainer = createContainer(({_id}) => {
   const relevantChannelSongs = ChannelSongs.find({channelId: _id}).fetch();
 
   //Get an array of search results based on search value
-  const searchResults = Songs.find().fetch();
+  // const searchResults = Songs.find().fetch();
+  const searchResults = SearchResults.find().fetch();
 
   //Get a count of channel songs for order incrementing
   const countOfChannelSongs = ChannelSongs.find({channelId: _id}).count();

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 import '../../api/Songs/methods.js';
+import '../../api/Songs/searchResultMethods.js';
 
 // Channels component - represents the rendering of channels
 export default class SearchSong extends Component {
@@ -16,9 +17,21 @@ export default class SearchSong extends Component {
 
     // call the search tracks method to insert results in to the DB
     if (Meteor.isClient) {
-      Meteor.call('searchTracks', text, function(err, response) {
-        // console.log('searchResponse', response);
-      });
+		Meteor.call('searchTracks', text, function(err, response) {
+// console.log('searchResponse', response, 'potential error', err);
+			if (response) {
+				//clear existing results
+				Meteor.call('searchResults.clear');
+				//add new results
+				response.map((songsResponse) => {
+					Meteor.call('searchResults.insert', songsResponse);
+// console.log('insertResponse id', insertResponse);
+// 				return insertResponse;
+				});
+			// window.SearchResults = SearchResults;
+// console.log('inserted songs', insertIds, 'searchResults');
+			}
+		});
     }
   }
   //

@@ -53,10 +53,10 @@ export default class ChannelList extends Component {
         { this.props.currentUser ?
           <div className="container">
 			<div className="col-sm-4 col-xs-12">
-				<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'copyplaylist' )}>Copy a playlist</a>
+				<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'copyplaylist' )}>Copy a Spotify Playlist</a>
 			</div>
 			<div className="col-sm-4 col-xs-12">
-			 	<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'newchannel' )}>Create a new channel</a>
+			 	<a className="btn btn-primary btn-block" href={FlowHelpers.pathFor( 'newchannel' )}>Create a New Channel</a>
 			</div>
           </div>
           : ''

@@ -21,6 +21,8 @@ import PlaylistContainer from '../../ui/containers/PlaylistContainer.js';
 import Admin from '../../ui/pages/Admin.jsx';
 import AdminContainer from '../../ui/containers/AdminContainer.js';
 
+import NewUser from '../../ui/pages/NewUser.jsx';
+import UserContainer from '../../ui/containers/UserContainer.js';
 
 FlowRouter.route('/landingPage', {
 	name: 'landingPage',
@@ -77,7 +79,7 @@ var loggedIn = FlowRouter.group({
   	if(!Meteor.userId()){
   		var route = FlowRouter.current();
   		if(route.route.name !== 'login'){
-console.log('user route', route);
+console.log('user route main', route);
   			Session.set('redirectAfterLogin',route.route.name);
   		}
   		FlowRouter.go('landingPage');
@@ -104,7 +106,7 @@ var loggedInSub = FlowRouter.group({
   	if(!Meteor.userId()){
   		var route = FlowRouter.current();
   		if(route.route.name !== 'login'){
-console.log('user route', route);
+console.log('user route sub', route);
   			Session.set('redirectAfterLogin',route.route.name);
   		}
   		FlowRouter.go('landingPage');
@@ -132,6 +134,17 @@ loggedInSub.route('/forkplaylist', {
 	},
 	triggersEnter: [function(context, redirect) {
 		console.log('running /forkplaylist trigger');
+	}]
+});
+
+// temp handling /newuser route
+loggedInSub.route('/newuser', {
+	name:'newuser',
+	action() {
+		mount(App, {content: <UserContainer />});
+	},
+	triggersEnter: [function(context, redirect) {
+		console.log('running /usercontainer trigger');
 	}]
 });
 

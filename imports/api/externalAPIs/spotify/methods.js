@@ -20,7 +20,7 @@ Meteor.methods({
 
 //***********add code to run song collection with query param and count results
 
-  console.log('in collection results', Songs.find().count());
+  // console.log('in collection results', Songs.find().count());
 
     var spotifyApi = new SpotifyWebApi();
     var response = spotifyApi.searchTracks(searchPattern, { limit : 5, offset : 1 });
@@ -42,11 +42,15 @@ Meteor.methods({
 
     // error handle here instead of ternary response
 
+    // console.log('spotify response', response.data.body.tracks);
+
     if ( response.data.body.tracks ) {
       //insert responses into songs collection
       var responseItems = response.data.body.tracks.items;
 
-      Meteor.call('songs.insert', responseItems);
+      //store search results to collection for later potential optimization
+      // Meteor.call('songs.insert', responseItems);
+
     }
 
     return responseItems ? responseItems : response;
